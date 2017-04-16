@@ -42,6 +42,9 @@
     "webpack-dev-server": "^2.4.2"
   },
   "dependencies": {
-    "angular": "^1.6.4"
+    "angular": "^1.6.4",
+    "moment": "^2.18.1",
+    "zingchart": "^2.6.0",
+    "zingchart-angularjs": "^1.2.0"
   }
 }

@@ -1,5 +1,48 @@
+h1 books searching
 .page__controller
-	//- page
-	| {{data}}
+	.search
+		input(
+			type='text'
+			ng-model='$page.search.query'
+			placeholder='query')
+		input(
+			type='text'
+			ng-model='$page.search.itemsPerPage'
+			placeholder='number')
+		button(
+			type='button'
+			ng-click='$page.search.find()') Искать
+	table.books(
+		ng-if='$page.table.list.length'
+		border='1')
+		thead
+			tr
+				th img
+				th(ng-click='$page.table.sort("title")') title
+				th(ng-click='$page.table.sort("authors")') authors
+				th(ng-click='$page.table.sort("publishedDate")') publishedDate
+				th(ng-click='$page.table.sort("categories")') categories
+				th(ng-click='$page.table.sort("pageCount")') pageCount
+				th link
+		tbody
+			tr(
+				ng-repeat='book in $page.table.list | orderBy: "volumeInfo." + $page.table.orderBy : $page.table.orderRev')
+				td
+					img(ng-src='{{book.volumeInfo.imageLinks.thumbnail}}')
+				td {{book.volumeInfo.title}}
+				td {{$page.table.arrayToString(book.volumeInfo.authors)}}
+				td {{$page.table.formatDate(book.volumeInfo.publishedDate)}}
+				td {{$page.table.arrayToString(book.volumeInfo.categories)}}
+				td {{book.volumeInfo.pageCount || '-'}}
+				td
+					a(href='/{{book.id}}') more
+		tfoot
+			tr
+				td(colspan='5') total
+				td(colspan='2') {{$page.table.totalPages}}
 
-	page-table(books='$ctrl')
+	.charts(ng-if='$page.table.list.length')
+		select(ng-model='$page.select.selected')
+			option(ng-repeat='option in $page.select.options')
+		zingchart#chart-1(
+			zc-json='$page.charts.data')

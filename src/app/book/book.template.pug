@@ -1,0 +1,18 @@
+h1 book info
+
+table(
+	ng-if='$book.data.id'
+	border='1')
+	thead
+		tr
+			th img
+			th title
+			th printedPageCount
+			th dimensions
+	tbody
+		tr
+			td
+				img(ng-src='{{$book.data.volumeInfo.imageLinks.thumbnail}}')
+			td {{$book.data.volumeInfo.title}}
+			td {{$book.data.volumeInfo.printedPageCount}}
+			td {{$book.data.volumeInfo.dimentions}}
