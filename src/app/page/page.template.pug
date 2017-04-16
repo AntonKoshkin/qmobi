@@ -42,7 +42,10 @@ h1 books searching
 				td(colspan='2') {{$page.table.totalPages}}
 
 	.charts(ng-if='$page.table.list.length')
-		select(ng-model='$page.select.selected')
-			option(ng-repeat='option in $page.select.options')
-		zingchart#chart-1(
-			zc-json='$page.charts.data')
+		select(
+			ng-model='$page.select.selected'
+			ng-change='$page.charts.setCharts()')
+			option(
+				ng-repeat='option in $page.select.options'
+				value='{{option}}') {{option}}
+		zingchart#chart(zc-json='$page.charts.data')
